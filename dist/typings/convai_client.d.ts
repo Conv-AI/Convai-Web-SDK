@@ -20,4 +20,6 @@ export declare class ConvaiClient {
     sendTextChunk(text: string): void;
     startAudioChunk(): void;
     endAudioChunk(): void;
+    onAudioPlay(fn: () => void): void;
+    onAudioStop(fn: () => void): void;
 }
