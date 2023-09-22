@@ -7,6 +7,12 @@ export class AudioConfig extends jspb.Message {
   getSampleRateHertz(): number;
   setSampleRateHertz(value: number): void;
 
+  getDisableAudio(): boolean;
+  setDisableAudio(value: boolean): void;
+
+  getEnableFacialData(): boolean;
+  setEnableFacialData(value: boolean): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): AudioConfig.AsObject;
   static toObject(includeInstance: boolean, msg: AudioConfig): AudioConfig.AsObject;
@@ -20,6 +26,28 @@ export class AudioConfig extends jspb.Message {
 export namespace AudioConfig {
   export type AsObject = {
     sampleRateHertz: number,
+    disableAudio: boolean,
+    enableFacialData: boolean,
+  }
+}
+
+export class TriggerConfig extends jspb.Message {
+  getTriggerMessage(): string;
+  setTriggerMessage(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): TriggerConfig.AsObject;
+  static toObject(includeInstance: boolean, msg: TriggerConfig): TriggerConfig.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: TriggerConfig, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): TriggerConfig;
+  static deserializeBinaryFromReader(message: TriggerConfig, reader: jspb.BinaryReader): TriggerConfig;
+}
+
+export namespace TriggerConfig {
+  export type AsObject = {
+    triggerMessage: string,
   }
 }
 
@@ -45,6 +73,9 @@ export class ActionConfig extends jspb.Message {
   getContextLevel(): number;
   setContextLevel(value: number): void;
 
+  getCurrentAttentionObject(): string;
+  setCurrentAttentionObject(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ActionConfig.AsObject;
   static toObject(includeInstance: boolean, msg: ActionConfig): ActionConfig.AsObject;
@@ -62,6 +93,7 @@ export namespace ActionConfig {
     objectsList: Array<ActionConfig.Object.AsObject>,
     classification: string,
     contextLevel: number,
+    currentAttentionObject: string,
   }
 
   export class Character extends jspb.Message {
@@ -221,6 +253,9 @@ export namespace GetResponseRequest {
     getSpeaker(): string;
     setSpeaker(value: string): void;
 
+    getLanguageCode(): string;
+    setLanguageCode(value: string): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetResponseConfig.AsObject;
     static toObject(includeInstance: boolean, msg: GetResponseConfig): GetResponseConfig.AsObject;
@@ -239,6 +274,7 @@ export namespace GetResponseRequest {
       audioConfig?: AudioConfig.AsObject,
       actionConfig?: ActionConfig.AsObject,
       speaker: string,
+      languageCode: string,
     }
   }
 
@@ -255,6 +291,11 @@ export namespace GetResponseRequest {
     getTextData(): string;
     setTextData(value: string): void;
 
+    hasTriggerData(): boolean;
+    clearTriggerData(): void;
+    getTriggerData(): TriggerConfig | undefined;
+    setTriggerData(value?: TriggerConfig): void;
+
     getInputTypeCase(): GetResponseData.InputTypeCase;
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetResponseData.AsObject;
@@ -270,12 +311,14 @@ export namespace GetResponseRequest {
     export type AsObject = {
       audioData: Uint8Array | string,
       textData: string,
+      triggerData?: TriggerConfig.AsObject,
     }
 
     export enum InputTypeCase {
       INPUT_TYPE_NOT_SET = 0,
       AUDIO_DATA = 1,
       TEXT_DATA = 2,
+      TRIGGER_DATA = 3,
     }
   }
 
@@ -338,6 +381,11 @@ export class GetResponseResponse extends jspb.Message {
   getUserQuery(): GetResponseResponse.UserTranscript | undefined;
   setUserQuery(value?: GetResponseResponse.UserTranscript): void;
 
+  hasBtResponse(): boolean;
+  clearBtResponse(): void;
+  getBtResponse(): GetResponseResponse.BehaviorTreeResponse | undefined;
+  setBtResponse(value?: GetResponseResponse.BehaviorTreeResponse): void;
+
   getResponseTypeCase(): GetResponseResponse.ResponseTypeCase;
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetResponseResponse.AsObject;
@@ -356,6 +404,7 @@ export namespace GetResponseResponse {
     audioResponse?: GetResponseResponse.AudioResponse.AsObject,
     debugLog: string,
     userQuery?: GetResponseResponse.UserTranscript.AsObject,
+    btResponse?: GetResponseResponse.BehaviorTreeResponse.AsObject,
   }
 
   export class AudioResponse extends jspb.Message {
@@ -375,6 +424,9 @@ export namespace GetResponseResponse {
     getEndOfResponse(): boolean;
     setEndOfResponse(value: boolean): void;
 
+    getFaceData(): string;
+    setFaceData(value: string): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): AudioResponse.AsObject;
     static toObject(includeInstance: boolean, msg: AudioResponse): AudioResponse.AsObject;
@@ -391,6 +443,7 @@ export namespace GetResponseResponse {
       audioConfig?: AudioConfig.AsObject,
       textData: string,
       endOfResponse: boolean,
+      faceData: string,
     }
   }
 
@@ -411,6 +464,34 @@ export namespace GetResponseResponse {
   export namespace ActionResponse {
     export type AsObject = {
       action: string,
+    }
+  }
+
+  export class BehaviorTreeResponse extends jspb.Message {
+    getBtCode(): string;
+    setBtCode(value: string): void;
+
+    getBtConstants(): string;
+    setBtConstants(value: string): void;
+
+    getNarrativeSectionId(): string;
+    setNarrativeSectionId(value: string): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): BehaviorTreeResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: BehaviorTreeResponse): BehaviorTreeResponse.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: BehaviorTreeResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): BehaviorTreeResponse;
+    static deserializeBinaryFromReader(message: BehaviorTreeResponse, reader: jspb.BinaryReader): BehaviorTreeResponse;
+  }
+
+  export namespace BehaviorTreeResponse {
+    export type AsObject = {
+      btCode: string,
+      btConstants: string,
+      narrativeSectionId: string,
     }
   }
 
@@ -448,6 +529,7 @@ export namespace GetResponseResponse {
     AUDIO_RESPONSE = 3,
     DEBUG_LOG = 4,
     USER_QUERY = 5,
+    BT_RESPONSE = 6,
   }
 }
 
