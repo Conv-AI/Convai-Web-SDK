@@ -1,16 +1,21 @@
 export declare class AudioPlayer {
+    private audioContext;
+    private gainNode;
+    private chunks;
     private sampleRate;
-    private asyncQueue;
-    private audio;
-    private url;
+    private startTime;
+    private lastChunkOffset;
+    private fadeDuration;
+    private minVol;
+    private maxVol;
     private onPlay;
     private onStop;
     private isPlaying;
     constructor(sampleRate: number);
-    private arrayBufferToBase64;
+    private convertLinearPCMToFloat32;
+    private createChunk;
+    private addFadeInFadeOut;
     addChunk(data: Uint8Array, sampleRate?: number | null): void;
-    getVolume(): number;
-    setAudioVolume(volume: number): void;
     onPlayStart(fn: () => void): void;
     onPlayStop(fn: () => void): void;
 }

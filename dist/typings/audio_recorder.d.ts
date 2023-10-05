@@ -1,11 +1,12 @@
 export declare class AudioRecorder {
-    private mediaRecorder;
-    private audioChunks;
+    private audioContext;
     private userMedia;
-    private isRecording;
+    private mediaStream;
+    private workletNode;
+    private audioCallback;
+    private audioWorkletModule;
     constructor();
-    init(audioCallback: (buffer: ArrayBuffer) => void): void;
-    start(timeslice?: number): void;
+    private convertoFloat32ToInt16;
+    start(audioCallback: (buffer: ArrayBuffer) => void): void;
     stop(): void;
-    private addAudioChunkCallback;
 }
