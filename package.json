@@ -6,7 +6,8 @@
   "scripts": {
     "clean": "rm -rf dist",
     "postbootstrap": "npm run lib:build",
-    "lib:build": "npm run clean && webpack && cp -r ./_proto ./dist/"
+    "lib:build": "npm run clean && webpack && cp -r ./_proto ./dist/",
+    "build-window": "webpack && cp -r ./_proto ./dist/"
   },
   "license": "Apache-2.0",
   "dependencies": {
