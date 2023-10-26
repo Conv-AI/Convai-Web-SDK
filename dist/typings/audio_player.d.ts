@@ -7,8 +7,9 @@ declare class AudioPlayer {
     private audioContext;
     constructor(sampleRate: number);
     private createAudioContext;
+    private handleAudioEmpty;
     private handleAudioEnded;
-    addChunk(data: Uint8Array | null, sampleRate?: number | null): Promise<void>;
+    addChunk(data: Uint8Array | null, sampleRate?: number | null, endChunk?: Uint8Array): Promise<void>;
     private playAudio;
     private arrayBufferToBase64;
     getVolume(): number;
