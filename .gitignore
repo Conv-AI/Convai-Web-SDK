@@ -1,3 +1,5 @@
 node_modules
 /src
 /_proto
+Proto/service/service_pb2.py
+Proto/service/service_pb2_grpc.py

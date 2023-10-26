@@ -438,6 +438,9 @@ export namespace GetResponseResponse {
     getEndOfResponse(): boolean;
     setEndOfResponse(value: boolean): void;
 
+    getFaceData(): string;
+    setFaceData(value: string): void;
+
     hasVisemesData(): boolean;
     clearVisemesData(): void;
     getVisemesData(): VisemesData | undefined;
@@ -465,14 +468,15 @@ export namespace GetResponseResponse {
       audioConfig?: AudioConfig.AsObject,
       textData: string,
       endOfResponse: boolean,
+      faceData: string,
       visemesData?: VisemesData.AsObject,
       blendshapesData?: BlendShapesData.AsObject,
     }
 
     export enum FaceDataTypeCase {
       FACE_DATA_TYPE_NOT_SET = 0,
-      VISEMES_DATA = 5,
-      BLENDSHAPES_DATA = 6,
+      VISEMES_DATA = 6,
+      BLENDSHAPES_DATA = 7,
     }
   }
 

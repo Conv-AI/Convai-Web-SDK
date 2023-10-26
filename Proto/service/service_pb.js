@@ -2820,15 +2820,15 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.service.GetResponseResponse.AudioResponse.oneofGroups_ = [[5,6]];
+proto.service.GetResponseResponse.AudioResponse.oneofGroups_ = [[6,7]];
 
 /**
  * @enum {number}
  */
 proto.service.GetResponseResponse.AudioResponse.FaceDataTypeCase = {
   FACE_DATA_TYPE_NOT_SET: 0,
-  VISEMES_DATA: 5,
-  BLENDSHAPES_DATA: 6
+  VISEMES_DATA: 6,
+  BLENDSHAPES_DATA: 7
 };
 
 /**
@@ -2871,6 +2871,7 @@ proto.service.GetResponseResponse.AudioResponse.toObject = function(includeInsta
     audioConfig: (f = msg.getAudioConfig()) && proto.service.AudioConfig.toObject(includeInstance, f),
     textData: jspb.Message.getFieldWithDefault(msg, 3, ""),
     endOfResponse: jspb.Message.getFieldWithDefault(msg, 4, false),
+    faceData: jspb.Message.getFieldWithDefault(msg, 5, ""),
     visemesData: (f = msg.getVisemesData()) && proto.service.VisemesData.toObject(includeInstance, f),
     blendshapesData: (f = msg.getBlendshapesData()) && proto.service.BlendShapesData.toObject(includeInstance, f)
   };
@@ -2927,11 +2928,15 @@ proto.service.GetResponseResponse.AudioResponse.deserializeBinaryFromReader = fu
       msg.setEndOfResponse(value);
       break;
     case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setFaceData(value);
+      break;
+    case 6:
       var value = new proto.service.VisemesData;
       reader.readMessage(value,proto.service.VisemesData.deserializeBinaryFromReader);
       msg.setVisemesData(value);
       break;
-    case 6:
+    case 7:
       var value = new proto.service.BlendShapesData;
       reader.readMessage(value,proto.service.BlendShapesData.deserializeBinaryFromReader);
       msg.setBlendshapesData(value);
@@ -2994,10 +2999,17 @@ proto.service.GetResponseResponse.AudioResponse.serializeBinaryToWriter = functi
       f
     );
   }
+  f = message.getFaceData();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
+      f
+    );
+  }
   f = message.getVisemesData();
   if (f != null) {
     writer.writeMessage(
-      5,
+      6,
       f,
       proto.service.VisemesData.serializeBinaryToWriter
     );
@@ -3005,7 +3017,7 @@ proto.service.GetResponseResponse.AudioResponse.serializeBinaryToWriter = functi
   f = message.getBlendshapesData();
   if (f != null) {
     writer.writeMessage(
-      6,
+      7,
       f,
       proto.service.BlendShapesData.serializeBinaryToWriter
     );
@@ -3115,18 +3127,33 @@ proto.service.GetResponseResponse.AudioResponse.prototype.setEndOfResponse = fun
 
 
 /**
- * optional VisemesData visemes_data = 5;
+ * optional string face_data = 5;
+ * @return {string}
+ */
+proto.service.GetResponseResponse.AudioResponse.prototype.getFaceData = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/** @param {string} value */
+proto.service.GetResponseResponse.AudioResponse.prototype.setFaceData = function(value) {
+  jspb.Message.setProto3StringField(this, 5, value);
+};
+
+
+/**
+ * optional VisemesData visemes_data = 6;
  * @return {?proto.service.VisemesData}
  */
 proto.service.GetResponseResponse.AudioResponse.prototype.getVisemesData = function() {
   return /** @type{?proto.service.VisemesData} */ (
-    jspb.Message.getWrapperField(this, proto.service.VisemesData, 5));
+    jspb.Message.getWrapperField(this, proto.service.VisemesData, 6));
 };
 
 
 /** @param {?proto.service.VisemesData|undefined} value */
 proto.service.GetResponseResponse.AudioResponse.prototype.setVisemesData = function(value) {
-  jspb.Message.setOneofWrapperField(this, 5, proto.service.GetResponseResponse.AudioResponse.oneofGroups_[0], value);
+  jspb.Message.setOneofWrapperField(this, 6, proto.service.GetResponseResponse.AudioResponse.oneofGroups_[0], value);
 };
 
 
@@ -3140,23 +3167,23 @@ proto.service.GetResponseResponse.AudioResponse.prototype.clearVisemesData = fun
  * @return {!boolean}
  */
 proto.service.GetResponseResponse.AudioResponse.prototype.hasVisemesData = function() {
-  return jspb.Message.getField(this, 5) != null;
+  return jspb.Message.getField(this, 6) != null;
 };
 
 
 /**
- * optional BlendShapesData blendshapes_data = 6;
+ * optional BlendShapesData blendshapes_data = 7;
  * @return {?proto.service.BlendShapesData}
  */
 proto.service.GetResponseResponse.AudioResponse.prototype.getBlendshapesData = function() {
   return /** @type{?proto.service.BlendShapesData} */ (
-    jspb.Message.getWrapperField(this, proto.service.BlendShapesData, 6));
+    jspb.Message.getWrapperField(this, proto.service.BlendShapesData, 7));
 };
 
 
 /** @param {?proto.service.BlendShapesData|undefined} value */
 proto.service.GetResponseResponse.AudioResponse.prototype.setBlendshapesData = function(value) {
-  jspb.Message.setOneofWrapperField(this, 6, proto.service.GetResponseResponse.AudioResponse.oneofGroups_[0], value);
+  jspb.Message.setOneofWrapperField(this, 7, proto.service.GetResponseResponse.AudioResponse.oneofGroups_[0], value);
 };
 
 
@@ -3170,7 +3197,7 @@ proto.service.GetResponseResponse.AudioResponse.prototype.clearBlendshapesData =
  * @return {!boolean}
  */
 proto.service.GetResponseResponse.AudioResponse.prototype.hasBlendshapesData = function() {
-  return jspb.Message.getField(this, 6) != null;
+  return jspb.Message.getField(this, 7) != null;
 };
 
 

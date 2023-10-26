@@ -100,9 +100,10 @@ message GetResponseResponse {
         AudioConfig audio_config = 2;
         string text_data = 3;
         bool end_of_response = 4;
+        string face_data = 5;
         oneof face_data_type {
-            VisemesData visemes_data = 5;
-            BlendShapesData blendshapes_data = 6;
+            VisemesData visemes_data = 6;
+            BlendShapesData blendshapes_data = 7;
         }
     }
 
