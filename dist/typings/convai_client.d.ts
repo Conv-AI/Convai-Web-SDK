@@ -5,7 +5,7 @@ export interface ConvaiClientParams {
     enableAudio: boolean;
     sessionId: string;
     languageCode?: string;
-    generateAudio?: boolean;
+    disableAudioGeneration?: boolean;
 }
 export declare class ConvaiClient {
     private sessionId;
@@ -14,10 +14,10 @@ export declare class ConvaiClient {
     private characterId;
     private languageCode;
     private enableAudio;
+    private disableAudioGeneration;
     private audioRecorder;
     private audioPlayer;
     private convaiGrpcClient;
-    private generateAudio;
     constructor(params: ConvaiClientParams);
     private validateBeforeRequest;
     resetSession(): void;

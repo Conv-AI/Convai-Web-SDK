@@ -7,8 +7,8 @@ export declare class ConvaiGRPCClient {
     private characterId;
     private inputMode;
     private isStarted;
-    private generateAudio;
-    constructor(apiKey: string, characterId: string, sessionId: string, responseCallback: (response: GetResponseResponse) => void, languageCode: string, genrateAudio: boolean);
+    private disableAudioGeneration;
+    constructor(apiKey: string, characterId: string, sessionId: string, responseCallback: (response: GetResponseResponse) => void, languageCode: string, disableAudioGeneration: boolean);
     sendText(text: string): void;
     sendAudioChunk(chunk: ArrayBuffer): void;
     finishSend(): void;
