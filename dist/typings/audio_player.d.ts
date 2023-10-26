@@ -1,20 +1,16 @@
-declare class AudioPlayer {
-    private audio;
+export declare class AudioPlayer {
+    private sampleRate;
     private asyncQueue;
-    private isPlaying;
+    private audio;
+    private url;
     private onPlay;
     private onStop;
-    private audioContext;
+    private isPlaying;
     constructor(sampleRate: number);
-    private createAudioContext;
-    private handleAudioEmpty;
-    private handleAudioEnded;
-    addChunk(data: Uint8Array | null, sampleRate?: number | null, endChunk?: Uint8Array): Promise<void>;
-    private playAudio;
     private arrayBufferToBase64;
+    addChunk(data: Uint8Array | null, sampleRate?: number | null): void;
     getVolume(): number;
     setAudioVolume(volume: number): void;
     onPlayStart(fn: () => void): void;
     onPlayStop(fn: () => void): void;
 }
-export { AudioPlayer };

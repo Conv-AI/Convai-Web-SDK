@@ -4,5 +4,6 @@ declare class AsyncBlockingQueue<T> {
     private _add;
     enqueue(item: T | null): void;
     dequeue(): Promise<T | null>;
+    isEmpty(): boolean;
 }
 export { AsyncBlockingQueue };
