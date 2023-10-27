@@ -1,12 +1,14 @@
 {
   "name": "convai-web-sdk",
+  "version": "0.0.6",
   "main": "dist/convai-web-client.js",
   "browser": "dist/convai-web-client.umd.js",
   "types": "dist/typings/convai_client.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "postbootstrap": "npm run lib:build",
-    "lib:build": "npm run clean && webpack && cp -r ./_proto ./dist/"
+    "lib:build": "npm run clean && webpack && cp -r ./_proto ./dist/",
+    "build-window": "webpack && cp -r ./_proto ./dist/"
   },
   "license": "Apache-2.0",
   "dependencies": {

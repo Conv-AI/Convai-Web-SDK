@@ -3,9 +3,9 @@ export interface ConvaiClientParams {
     apiKey: string;
     characterId: string;
     enableAudio: boolean;
-    enableFacialData: boolean;
     sessionId: string;
     languageCode?: string;
+    disableAudioGeneration?: boolean;
 }
 export declare class ConvaiClient {
     private sessionId;
@@ -14,7 +14,7 @@ export declare class ConvaiClient {
     private characterId;
     private languageCode;
     private enableAudio;
-    private enableFacialData;
+    private disableAudioGeneration;
     private audioRecorder;
     private audioPlayer;
     private convaiGrpcClient;
