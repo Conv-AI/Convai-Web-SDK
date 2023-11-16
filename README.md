@@ -9,11 +9,14 @@ import { ConvaiClient } from 'convai-web-sdk';
 import { GetResponseResponse } from "convai-web-sdk/dist/_proto/service/service_pb";
 
 // Initiate the convai client.
-var convaiClient = new ConvaiClient({
-    apiKey: <add convai api key>,
-    characterId: <add convai character id>,
-    enableAudio: true // use false for text only.
-});
+const convaiClient = useRef(null);
+convaiClient.current = new ConvaiClient({
+      apiKey: string //Enter your API Key here,
+      characterId: string //Enter your Character ID,
+      enableAudio: boolean, //use false for text only.
+      sessionId: string //use this to save conversation sessions to save conversations
+      disableAudioGeneration: boolean false, //Optional parameter for chat only applications
+ })
 
 // Set a response callback. This may fire multiple times as response
 // can come in multiple parts.
@@ -54,40 +57,30 @@ convaiClient.resetSession();
 
 ```
 
-### Sample Chat React Application
+### Facial Expressions
 
-Open the terminal from the project root.
+To kickstart facial expression functionality, initialize the `ConvaiClient` with the necessary parameters. The `enableFacialData` flag must be set to `true` to enable facial expression data.
 
-```sh
-cd demo/chat
-# Install all dependencies
-npm install
-# Install the convai-web-sdk plugin present in the root folder.
-npm install ../..
-# Add Convai API Key and Character ID in src/constants.ts
-vim src/constants.ts
-# Run app on localhost
-npm run start
-# App will start at http://localhost:8081.
+```javascript
+convaiClient.current = new ConvaiClient({
+  apiKey: '<apiKey>',
+  characterId: '<characterId>',
+  enableAudio: true,
+  enableFacialData: true,
+  faceModel: 3, // OVR lipsync
+});
 ```
+[Further Documentation](https://docs.convai.com/api-docs/plugins-and-integrations/convai-web-sdk/facial-expressions)
 
-### Sample Interactive Avatar Application using ThreeJS
+## Reference Videos
+**Convai-Npc World (React Three Fiber):**
+* GitHub: [Conv-AI/ThreeJs-World-Tutorial](https://github.com/Conv-AI/ThreeJs-World-Tutorial)
+* Tutorial Video: [Watch Video](https://www.youtube.com/watch?v=hOqtVLGXwKU)
+* Hosted Link: [Interactive.convai.com](https://interactive.convai.com/)
 
-Open the terminal from the project root.
+## Real Time Lipsync with Reallusion Characters:
 
-```sh
-cd demo/talking-avatar
-# Install all dependencies
-npm install
-# Add Convai API Key and Character ID in src/constants.ts
-vim src/constants.js
-# Run app on localhost
-npm run start
-# App will start at http://localhost:3000.
-```
+* GitHub: [Conv-AI/Reallusion-lipsync-web](https://github.com/Conv-AI/Reallusion-lipsync-web)
 
-
-https://user-images.githubusercontent.com/1998396/229350106-e9c8897f-9eee-4add-a833-17f6210f3c05.mov
-
-
-
+## NPM
+[convai-web-sdk](https://www.npmjs.com/package/convai-web-sdk)
