@@ -20,6 +20,7 @@
   ],
   "version": "0.0.7",
   "main": "dist/convai-web-client.js",
+  "homepage": "https://www.convai.com/",
   "browser": "dist/convai-web-client.umd.js",
   "types": "dist/typings/convai_client.d.ts",
   "scripts": {
