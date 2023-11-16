@@ -1,4 +1,4 @@
-import { GetResponseResponse } from "../Proto/service/service_pb";
+import { GetResponseResponse } from "../../Proto/service/service_pb";
 export interface ConvaiClientParams {
     apiKey: string;
     characterId: string;
