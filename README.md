@@ -14,7 +14,7 @@ convaiClient.current = new ConvaiClient({
       apiKey: string //Enter your API Key here,
       characterId: string //Enter your Character ID,
       enableAudio: boolean, //use false for text only.
-      sessionId: string //use this to save conversation sessions to save conversations
+      sessionId: string //current conversation session. Can be used to retrieve chat history. 
       disableAudioGeneration: boolean false, //Optional parameter for chat only applications
  })
 
