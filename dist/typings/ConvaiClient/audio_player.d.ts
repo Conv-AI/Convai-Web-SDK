@@ -8,7 +8,7 @@ export declare class AudioPlayer {
     private isPlaying;
     constructor(sampleRate: number);
     private arrayBufferToBase64;
-    addChunk(data: Uint8Array | null, sampleRate?: number | null): void;
+    addChunk(data: Uint8Array, sampleRate?: number | null): void;
     getVolume(): number;
     setAudioVolume(volume: number): void;
     onPlayStart(fn: () => void): void;
