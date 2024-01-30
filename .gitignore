@@ -2,3 +2,5 @@ node_modules
 package-lock.json
 /src
 /_proto
+Proto/service/service_pb2.py
+Proto/service/service_pb2_grpc.py
