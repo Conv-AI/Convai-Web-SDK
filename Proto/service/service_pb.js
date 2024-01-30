@@ -17,6 +17,9 @@ goog.exportSymbol('proto.service.ActionConfig.Object', null, global);
 goog.exportSymbol('proto.service.AudioConfig', null, global);
 goog.exportSymbol('proto.service.BlendShapesData', null, global);
 goog.exportSymbol('proto.service.FaceModel', null, global);
+goog.exportSymbol('proto.service.FeedbackRequest', null, global);
+goog.exportSymbol('proto.service.FeedbackRequest.Feedback', null, global);
+goog.exportSymbol('proto.service.FeedbackResponse', null, global);
 goog.exportSymbol('proto.service.GetResponseRequest', null, global);
 goog.exportSymbol('proto.service.GetResponseRequest.GetResponseConfig', null, global);
 goog.exportSymbol('proto.service.GetResponseRequest.GetResponseData', null, global);
@@ -25,6 +28,7 @@ goog.exportSymbol('proto.service.GetResponseResponse', null, global);
 goog.exportSymbol('proto.service.GetResponseResponse.ActionResponse', null, global);
 goog.exportSymbol('proto.service.GetResponseResponse.AudioResponse', null, global);
 goog.exportSymbol('proto.service.GetResponseResponse.BehaviorTreeResponse', null, global);
+goog.exportSymbol('proto.service.GetResponseResponse.EmotionResponse', null, global);
 goog.exportSymbol('proto.service.GetResponseResponse.UserTranscript', null, global);
 goog.exportSymbol('proto.service.HelloRequest', null, global);
 goog.exportSymbol('proto.service.HelloResponse', null, global);
@@ -2583,7 +2587,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.service.GetResponseResponse.oneofGroups_ = [[2,3,4,5,6,7]];
+proto.service.GetResponseResponse.oneofGroups_ = [[2,3,4,5,6,7,8]];
 
 /**
  * @enum {number}
@@ -2595,7 +2599,8 @@ proto.service.GetResponseResponse.ResponseTypeCase = {
   DEBUG_LOG: 4,
   USER_QUERY: 5,
   BT_RESPONSE: 6,
-  EMOTION_RESPONSE: 7
+  EMOTION_RESPONSE: 7,
+  INTERACTION_ID: 8
 };
 
 /**
@@ -2640,7 +2645,8 @@ proto.service.GetResponseResponse.toObject = function(includeInstance, msg) {
     debugLog: jspb.Message.getFieldWithDefault(msg, 4, ""),
     userQuery: (f = msg.getUserQuery()) && proto.service.GetResponseResponse.UserTranscript.toObject(includeInstance, f),
     btResponse: (f = msg.getBtResponse()) && proto.service.GetResponseResponse.BehaviorTreeResponse.toObject(includeInstance, f),
-    emotionResponse: jspb.Message.getFieldWithDefault(msg, 7, "")
+    emotionResponse: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    interactionId: jspb.Message.getFieldWithDefault(msg, 8, "")
   };
 
   if (includeInstance) {
@@ -2708,6 +2714,10 @@ proto.service.GetResponseResponse.deserializeBinaryFromReader = function(msg, re
     case 7:
       var value = /** @type {string} */ (reader.readString());
       msg.setEmotionResponse(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setInteractionId(value);
       break;
     default:
       reader.skipField();
@@ -2788,6 +2798,13 @@ proto.service.GetResponseResponse.serializeBinaryToWriter = function(message, wr
   if (f != null) {
     writer.writeString(
       7,
+      f
+    );
+  }
+  f = /** @type {string} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeString(
+      8,
       f
     );
   }
@@ -2873,7 +2890,8 @@ proto.service.GetResponseResponse.AudioResponse.toObject = function(includeInsta
     endOfResponse: jspb.Message.getFieldWithDefault(msg, 4, false),
     faceData: jspb.Message.getFieldWithDefault(msg, 5, ""),
     visemesData: (f = msg.getVisemesData()) && proto.service.VisemesData.toObject(includeInstance, f),
-    blendshapesData: (f = msg.getBlendshapesData()) && proto.service.BlendShapesData.toObject(includeInstance, f)
+    blendshapesData: (f = msg.getBlendshapesData()) && proto.service.BlendShapesData.toObject(includeInstance, f),
+    emotionResponse: (f = msg.getEmotionResponse()) && proto.service.GetResponseResponse.EmotionResponse.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -2940,6 +2958,11 @@ proto.service.GetResponseResponse.AudioResponse.deserializeBinaryFromReader = fu
       var value = new proto.service.BlendShapesData;
       reader.readMessage(value,proto.service.BlendShapesData.deserializeBinaryFromReader);
       msg.setBlendshapesData(value);
+      break;
+    case 8:
+      var value = new proto.service.GetResponseResponse.EmotionResponse;
+      reader.readMessage(value,proto.service.GetResponseResponse.EmotionResponse.deserializeBinaryFromReader);
+      msg.setEmotionResponse(value);
       break;
     default:
       reader.skipField();
@@ -3020,6 +3043,14 @@ proto.service.GetResponseResponse.AudioResponse.serializeBinaryToWriter = functi
       7,
       f,
       proto.service.BlendShapesData.serializeBinaryToWriter
+    );
+  }
+  f = message.getEmotionResponse();
+  if (f != null) {
+    writer.writeMessage(
+      8,
+      f,
+      proto.service.GetResponseResponse.EmotionResponse.serializeBinaryToWriter
     );
   }
 };
@@ -3201,6 +3232,36 @@ proto.service.GetResponseResponse.AudioResponse.prototype.hasBlendshapesData = f
 };
 
 
+/**
+ * optional EmotionResponse emotion_response = 8;
+ * @return {?proto.service.GetResponseResponse.EmotionResponse}
+ */
+proto.service.GetResponseResponse.AudioResponse.prototype.getEmotionResponse = function() {
+  return /** @type{?proto.service.GetResponseResponse.EmotionResponse} */ (
+    jspb.Message.getWrapperField(this, proto.service.GetResponseResponse.EmotionResponse, 8));
+};
+
+
+/** @param {?proto.service.GetResponseResponse.EmotionResponse|undefined} value */
+proto.service.GetResponseResponse.AudioResponse.prototype.setEmotionResponse = function(value) {
+  jspb.Message.setWrapperField(this, 8, value);
+};
+
+
+proto.service.GetResponseResponse.AudioResponse.prototype.clearEmotionResponse = function() {
+  this.setEmotionResponse(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.service.GetResponseResponse.AudioResponse.prototype.hasEmotionResponse = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -3340,6 +3401,175 @@ proto.service.GetResponseResponse.ActionResponse.prototype.getAction = function(
 /** @param {string} value */
 proto.service.GetResponseResponse.ActionResponse.prototype.setAction = function(value) {
   jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.GetResponseResponse.EmotionResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.GetResponseResponse.EmotionResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.service.GetResponseResponse.EmotionResponse.displayName = 'proto.service.GetResponseResponse.EmotionResponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetResponseResponse.EmotionResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetResponseResponse.EmotionResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetResponseResponse.EmotionResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetResponseResponse.EmotionResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    emotion: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    scale: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetResponseResponse.EmotionResponse}
+ */
+proto.service.GetResponseResponse.EmotionResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetResponseResponse.EmotionResponse;
+  return proto.service.GetResponseResponse.EmotionResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetResponseResponse.EmotionResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetResponseResponse.EmotionResponse}
+ */
+proto.service.GetResponseResponse.EmotionResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setEmotion(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScale(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetResponseResponse.EmotionResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetResponseResponse.EmotionResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetResponseResponse.EmotionResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetResponseResponse.EmotionResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getEmotion();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getScale();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string emotion = 1;
+ * @return {string}
+ */
+proto.service.GetResponseResponse.EmotionResponse.prototype.getEmotion = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.service.GetResponseResponse.EmotionResponse.prototype.setEmotion = function(value) {
+  jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string scale = 2;
+ * @return {string}
+ */
+proto.service.GetResponseResponse.EmotionResponse.prototype.getScale = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.service.GetResponseResponse.EmotionResponse.prototype.setScale = function(value) {
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -3929,6 +4159,35 @@ proto.service.GetResponseResponse.prototype.clearEmotionResponse = function() {
  */
 proto.service.GetResponseResponse.prototype.hasEmotionResponse = function() {
   return jspb.Message.getField(this, 7) != null;
+};
+
+
+/**
+ * optional string interaction_id = 8;
+ * @return {string}
+ */
+proto.service.GetResponseResponse.prototype.getInteractionId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/** @param {string} value */
+proto.service.GetResponseResponse.prototype.setInteractionId = function(value) {
+  jspb.Message.setOneofField(this, 8, proto.service.GetResponseResponse.oneofGroups_[0], value);
+};
+
+
+proto.service.GetResponseResponse.prototype.clearInteractionId = function() {
+  jspb.Message.setOneofField(this, 8, proto.service.GetResponseResponse.oneofGroups_[0], undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.service.GetResponseResponse.prototype.hasInteractionId = function() {
+  return jspb.Message.getField(this, 8) != null;
 };
 
 
@@ -5033,6 +5292,559 @@ proto.service.HelloResponse.prototype.getMessage = function() {
 
 /** @param {string} value */
 proto.service.HelloResponse.prototype.setMessage = function(value) {
+  jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.FeedbackRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.FeedbackRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.service.FeedbackRequest.displayName = 'proto.service.FeedbackRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.FeedbackRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.FeedbackRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.FeedbackRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.FeedbackRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    interactionId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    characterId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    sessionId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    textFeedback: (f = msg.getTextFeedback()) && proto.service.FeedbackRequest.Feedback.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.FeedbackRequest}
+ */
+proto.service.FeedbackRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.FeedbackRequest;
+  return proto.service.FeedbackRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.FeedbackRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.FeedbackRequest}
+ */
+proto.service.FeedbackRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setInteractionId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setCharacterId(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSessionId(value);
+      break;
+    case 5:
+      var value = new proto.service.FeedbackRequest.Feedback;
+      reader.readMessage(value,proto.service.FeedbackRequest.Feedback.deserializeBinaryFromReader);
+      msg.setTextFeedback(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.FeedbackRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.FeedbackRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.FeedbackRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.FeedbackRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getInteractionId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getCharacterId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getSessionId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getTextFeedback();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      proto.service.FeedbackRequest.Feedback.serializeBinaryToWriter
+    );
+  }
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.FeedbackRequest.Feedback = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.FeedbackRequest.Feedback, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.service.FeedbackRequest.Feedback.displayName = 'proto.service.FeedbackRequest.Feedback';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.FeedbackRequest.Feedback.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.FeedbackRequest.Feedback.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.FeedbackRequest.Feedback} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.FeedbackRequest.Feedback.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    thumbsUp: jspb.Message.getFieldWithDefault(msg, 1, false),
+    feedbackText: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.FeedbackRequest.Feedback}
+ */
+proto.service.FeedbackRequest.Feedback.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.FeedbackRequest.Feedback;
+  return proto.service.FeedbackRequest.Feedback.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.FeedbackRequest.Feedback} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.FeedbackRequest.Feedback}
+ */
+proto.service.FeedbackRequest.Feedback.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setThumbsUp(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setFeedbackText(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.FeedbackRequest.Feedback.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.FeedbackRequest.Feedback.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.FeedbackRequest.Feedback} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.FeedbackRequest.Feedback.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getThumbsUp();
+  if (f) {
+    writer.writeBool(
+      1,
+      f
+    );
+  }
+  f = message.getFeedbackText();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional bool thumbs_up = 1;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.service.FeedbackRequest.Feedback.prototype.getThumbsUp = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
+};
+
+
+/** @param {boolean} value */
+proto.service.FeedbackRequest.Feedback.prototype.setThumbsUp = function(value) {
+  jspb.Message.setProto3BooleanField(this, 1, value);
+};
+
+
+/**
+ * optional string feedback_text = 2;
+ * @return {string}
+ */
+proto.service.FeedbackRequest.Feedback.prototype.getFeedbackText = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.service.FeedbackRequest.Feedback.prototype.setFeedbackText = function(value) {
+  jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string interaction_id = 1;
+ * @return {string}
+ */
+proto.service.FeedbackRequest.prototype.getInteractionId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.service.FeedbackRequest.prototype.setInteractionId = function(value) {
+  jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string character_id = 2;
+ * @return {string}
+ */
+proto.service.FeedbackRequest.prototype.getCharacterId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.service.FeedbackRequest.prototype.setCharacterId = function(value) {
+  jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string session_id = 3;
+ * @return {string}
+ */
+proto.service.FeedbackRequest.prototype.getSessionId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.service.FeedbackRequest.prototype.setSessionId = function(value) {
+  jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional Feedback text_feedback = 5;
+ * @return {?proto.service.FeedbackRequest.Feedback}
+ */
+proto.service.FeedbackRequest.prototype.getTextFeedback = function() {
+  return /** @type{?proto.service.FeedbackRequest.Feedback} */ (
+    jspb.Message.getWrapperField(this, proto.service.FeedbackRequest.Feedback, 5));
+};
+
+
+/** @param {?proto.service.FeedbackRequest.Feedback|undefined} value */
+proto.service.FeedbackRequest.prototype.setTextFeedback = function(value) {
+  jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+proto.service.FeedbackRequest.prototype.clearTextFeedback = function() {
+  this.setTextFeedback(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.service.FeedbackRequest.prototype.hasTextFeedback = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.FeedbackResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.FeedbackResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.service.FeedbackResponse.displayName = 'proto.service.FeedbackResponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.FeedbackResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.FeedbackResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.FeedbackResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.FeedbackResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    feedbackResponse: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.FeedbackResponse}
+ */
+proto.service.FeedbackResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.FeedbackResponse;
+  return proto.service.FeedbackResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.FeedbackResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.FeedbackResponse}
+ */
+proto.service.FeedbackResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setFeedbackResponse(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.FeedbackResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.FeedbackResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.FeedbackResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.FeedbackResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getFeedbackResponse();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string feedback_response = 1;
+ * @return {string}
+ */
+proto.service.FeedbackResponse.prototype.getFeedbackResponse = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.service.FeedbackResponse.prototype.setFeedbackResponse = function(value) {
   jspb.Message.setProto3StringField(this, 1, value);
 };
 

@@ -49,6 +49,15 @@ type ConvaiServiceGetResponseSingle = {
   readonly responseType: typeof service_service_pb.GetResponseResponse;
 };
 
+type ConvaiServiceSubmitFeedback = {
+  readonly methodName: string;
+  readonly service: typeof ConvaiService;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof service_service_pb.FeedbackRequest;
+  readonly responseType: typeof service_service_pb.FeedbackResponse;
+};
+
 export class ConvaiService {
   static readonly serviceName: string;
   static readonly Hello: ConvaiServiceHello;
@@ -56,6 +65,7 @@ export class ConvaiService {
   static readonly SpeechToText: ConvaiServiceSpeechToText;
   static readonly GetResponse: ConvaiServiceGetResponse;
   static readonly GetResponseSingle: ConvaiServiceGetResponseSingle;
+  static readonly SubmitFeedback: ConvaiServiceSubmitFeedback;
 }
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
@@ -103,5 +113,14 @@ export class ConvaiServiceClient {
   speechToText(metadata?: grpc.Metadata): BidirectionalStream<service_service_pb.STTRequest, service_service_pb.STTResponse>;
   getResponse(metadata?: grpc.Metadata): BidirectionalStream<service_service_pb.GetResponseRequest, service_service_pb.GetResponseResponse>;
   getResponseSingle(requestMessage: service_service_pb.GetResponseRequestSingle, metadata?: grpc.Metadata): ResponseStream<service_service_pb.GetResponseResponse>;
+  submitFeedback(
+    requestMessage: service_service_pb.FeedbackRequest,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: service_service_pb.FeedbackResponse|null) => void
+  ): UnaryResponse;
+  submitFeedback(
+    requestMessage: service_service_pb.FeedbackRequest,
+    callback: (error: ServiceError|null, responseMessage: service_service_pb.FeedbackResponse|null) => void
+  ): UnaryResponse;
 }
 

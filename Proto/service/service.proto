@@ -9,6 +9,9 @@ service ConvaiService {
 
   rpc GetResponse(stream GetResponseRequest) returns (stream GetResponseResponse) {}
   rpc GetResponseSingle(GetResponseRequestSingle) returns (stream GetResponseResponse) {}
+
+  rpc SubmitFeedback(FeedbackRequest) returns (FeedbackResponse) {}
+
 }
 
 message AudioConfig {
@@ -105,10 +108,16 @@ message GetResponseResponse {
             VisemesData visemes_data = 6;
             BlendShapesData blendshapes_data = 7;
         }
+        EmotionResponse emotion_response = 8;
     }
 
   message ActionResponse {
     string action = 1;
+  }
+
+  message EmotionResponse {
+    string emotion = 1;
+    string scale = 2;
   }
 
   message BehaviorTreeResponse {
@@ -133,6 +142,7 @@ message GetResponseResponse {
     UserTranscript user_query = 5;
     BehaviorTreeResponse bt_response = 6;
     string emotion_response = 7;
+    string interaction_id = 8;
   }
 }
 
@@ -168,4 +178,21 @@ message HelloRequest {
 }
 message HelloResponse {
   string message = 1;
+}
+
+message FeedbackRequest {
+  message Feedback{
+    bool thumbs_up = 1;
+    string feedback_text = 2; 
+  }
+  
+  string interaction_id = 1; 
+  string character_id = 2;
+  string session_id = 3;
+  // Feedback for the Text Response.
+  Feedback text_feedback = 5;
+}
+
+message FeedbackResponse {
+  string feedback_response = 1;
 }

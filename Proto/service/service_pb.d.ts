@@ -399,6 +399,11 @@ export class GetResponseResponse extends jspb.Message {
   getEmotionResponse(): string;
   setEmotionResponse(value: string): void;
 
+  hasInteractionId(): boolean;
+  clearInteractionId(): void;
+  getInteractionId(): string;
+  setInteractionId(value: string): void;
+
   getResponseTypeCase(): GetResponseResponse.ResponseTypeCase;
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetResponseResponse.AsObject;
@@ -419,6 +424,7 @@ export namespace GetResponseResponse {
     userQuery?: GetResponseResponse.UserTranscript.AsObject,
     btResponse?: GetResponseResponse.BehaviorTreeResponse.AsObject,
     emotionResponse: string,
+    interactionId: string,
   }
 
   export class AudioResponse extends jspb.Message {
@@ -451,6 +457,11 @@ export namespace GetResponseResponse {
     getBlendshapesData(): BlendShapesData | undefined;
     setBlendshapesData(value?: BlendShapesData): void;
 
+    hasEmotionResponse(): boolean;
+    clearEmotionResponse(): void;
+    getEmotionResponse(): GetResponseResponse.EmotionResponse | undefined;
+    setEmotionResponse(value?: GetResponseResponse.EmotionResponse): void;
+
     getFaceDataTypeCase(): AudioResponse.FaceDataTypeCase;
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): AudioResponse.AsObject;
@@ -471,6 +482,7 @@ export namespace GetResponseResponse {
       faceData: string,
       visemesData?: VisemesData.AsObject,
       blendshapesData?: BlendShapesData.AsObject,
+      emotionResponse?: GetResponseResponse.EmotionResponse.AsObject,
     }
 
     export enum FaceDataTypeCase {
@@ -497,6 +509,30 @@ export namespace GetResponseResponse {
   export namespace ActionResponse {
     export type AsObject = {
       action: string,
+    }
+  }
+
+  export class EmotionResponse extends jspb.Message {
+    getEmotion(): string;
+    setEmotion(value: string): void;
+
+    getScale(): string;
+    setScale(value: string): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): EmotionResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: EmotionResponse): EmotionResponse.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: EmotionResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): EmotionResponse;
+    static deserializeBinaryFromReader(message: EmotionResponse, reader: jspb.BinaryReader): EmotionResponse;
+  }
+
+  export namespace EmotionResponse {
+    export type AsObject = {
+      emotion: string,
+      scale: string,
     }
   }
 
@@ -564,6 +600,7 @@ export namespace GetResponseResponse {
     USER_QUERY = 5,
     BT_RESPONSE = 6,
     EMOTION_RESPONSE = 7,
+    INTERACTION_ID = 8,
   }
 }
 
@@ -722,6 +759,84 @@ export class HelloResponse extends jspb.Message {
 export namespace HelloResponse {
   export type AsObject = {
     message: string,
+  }
+}
+
+export class FeedbackRequest extends jspb.Message {
+  getInteractionId(): string;
+  setInteractionId(value: string): void;
+
+  getCharacterId(): string;
+  setCharacterId(value: string): void;
+
+  getSessionId(): string;
+  setSessionId(value: string): void;
+
+  hasTextFeedback(): boolean;
+  clearTextFeedback(): void;
+  getTextFeedback(): FeedbackRequest.Feedback | undefined;
+  setTextFeedback(value?: FeedbackRequest.Feedback): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): FeedbackRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: FeedbackRequest): FeedbackRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: FeedbackRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): FeedbackRequest;
+  static deserializeBinaryFromReader(message: FeedbackRequest, reader: jspb.BinaryReader): FeedbackRequest;
+}
+
+export namespace FeedbackRequest {
+  export type AsObject = {
+    interactionId: string,
+    characterId: string,
+    sessionId: string,
+    textFeedback?: FeedbackRequest.Feedback.AsObject,
+  }
+
+  export class Feedback extends jspb.Message {
+    getThumbsUp(): boolean;
+    setThumbsUp(value: boolean): void;
+
+    getFeedbackText(): string;
+    setFeedbackText(value: string): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Feedback.AsObject;
+    static toObject(includeInstance: boolean, msg: Feedback): Feedback.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Feedback, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Feedback;
+    static deserializeBinaryFromReader(message: Feedback, reader: jspb.BinaryReader): Feedback;
+  }
+
+  export namespace Feedback {
+    export type AsObject = {
+      thumbsUp: boolean,
+      feedbackText: string,
+    }
+  }
+}
+
+export class FeedbackResponse extends jspb.Message {
+  getFeedbackResponse(): string;
+  setFeedbackResponse(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): FeedbackResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: FeedbackResponse): FeedbackResponse.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: FeedbackResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): FeedbackResponse;
+  static deserializeBinaryFromReader(message: FeedbackResponse, reader: jspb.BinaryReader): FeedbackResponse;
+}
+
+export namespace FeedbackResponse {
+  export type AsObject = {
+    feedbackResponse: string,
   }
 }
 
