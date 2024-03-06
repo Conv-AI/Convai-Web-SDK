@@ -1,0 +1,20 @@
+# Ignore all test files
+test
+
+# Ignore all documentation
+docs
+
+# Ignore all log files
+*.log
+
+# Ignore all node modules
+node_modules
+
+# Ignore all configuration files
+*.config.js
+
+install.Unix.sh
+
+# Ignore src and proto
+src/
+Proto/

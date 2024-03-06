@@ -1,24 +1,15 @@
 {
   "name": "convai-web-sdk",
-  "description":"Integrate lifelike digital beings into your web applications with real-time conversations, actions, and facial expressions. Supports a variety of voices, languages, and emotions.",
-   "keywords": [
-    "digital beings",
-    "real-time conversations",
+  "description": "Integrate lifelike digital beings into your web applications with real-time conversations, actions, and facial expressions. Supports a variety of voices, languages, and emotions.",
+  "keywords": [
+    "react",
+    "unity-webgl",
     "facial expressions",
-    "lifelike interactions",
-    "web application integration",
     "conversational AI",
-    "virtual characters",
-    "voice integration",
-    "emotion recognition",
-    "natural language processing",
-    "human-computer interaction",
     "interactive web experiences",
-    "web development toolkit",
-    "interactive avatars",
-    "emotive chat"
+    "interactive avatars"
   ],
-  "version": "0.0.7",
+  "version": "0.1.0",
   "main": "dist/convai-web-client.js",
   "homepage": "https://www.convai.com/",
   "browser": "dist/convai-web-client.umd.js",
@@ -30,6 +21,7 @@
     "build-window": "webpack && cp -r ./_proto ./dist/"
   },
   "license": "Apache-2.0",
+  "author": "Convai Technologies Inc.",
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.15.0",
     "google-protobuf": "^3.21.2",
@@ -40,5 +32,8 @@
     "ts-loader": "^9.4.2",
     "webpack": "^5.76.0",
     "webpack-cli": "^5.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/Conv-AI/Convai-Web-SDK/issues"
   }
 }

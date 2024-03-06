@@ -1,30 +1,31 @@
 {
-    "compilerOptions": {
-        "sourceMap": true,
-        "declaration": true,
-        "declarationDir": "./dist/typings",
-        "target": "es5",
-        "lib": [
-            "es6",
-            "dom"
-        ],
-        "removeComments": true,
-        "noImplicitReturns": true,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "stripInternal": true,
-        "noFallthroughCasesInSwitch": true,
-        "outDir": "dist",
-        "noEmitOnError": true
-    },
-    "types": [
-        "node"
-    ],
-    "include": [
-        "src"
-    ],
-    "exclude": [
-        "node_modules",
-        "_proto"
-    ]
+  "compilerOptions": {
+    "incremental": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "strict": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationDir": "dist/typings",
+    "lib": ["esnext", "dom"],
+    "target": "esnext",
+    "removeComments": true,
+    "noImplicitReturns": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "stripInternal": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./src",
+    "outDir": "dist",
+    "noEmitOnError": true
+  },
+  "types": ["node"],
+  "include": ["src/**/*.ts", "src/**/*.js"],
+  "exclude": ["node_modules", "Proto"]
 }
