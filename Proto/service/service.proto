@@ -1,6 +1,8 @@
 // service.proto
 syntax = "proto3";
 package service;
+import "rpc/arkit_blend_shapes.proto";
+
 service ConvaiService {
   rpc Hello(HelloRequest) returns (HelloResponse) {}
   rpc HelloStream(stream HelloRequest) returns (stream HelloResponse) {}
@@ -19,6 +21,7 @@ message AudioConfig {
   bool disable_audio = 2;
   bool enable_facial_data = 3;
   FaceModel face_model = 4;
+  bool enable_facial_emotion_data = 5;
 }
 
 enum FaceModel {
@@ -77,6 +80,7 @@ message GetResponseRequest {
     ActionConfig action_config = 6;
     string speaker = 7;
     string language_code = 8;
+    string speaker_id = 9;
     
   }
   message GetResponseData {
@@ -108,16 +112,11 @@ message GetResponseResponse {
             VisemesData visemes_data = 6;
             BlendShapesData blendshapes_data = 7;
         }
-        EmotionResponse emotion_response = 8;
+        ARKitBlendShapesData face_emotion = 8;
     }
 
   message ActionResponse {
     string action = 1;
-  }
-
-  message EmotionResponse {
-    string emotion = 1;
-    string scale = 2;
   }
 
   message BehaviorTreeResponse {

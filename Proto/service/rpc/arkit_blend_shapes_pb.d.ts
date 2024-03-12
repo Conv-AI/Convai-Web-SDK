@@ -1,5 +1,5 @@
 // package: service
-// file: service/arkit_blend_shapes.proto
+// file: rpc/arkit_blend_shapes.proto
 
 import * as jspb from "google-protobuf";
 

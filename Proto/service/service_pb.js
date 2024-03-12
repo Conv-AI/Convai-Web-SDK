@@ -11,6 +11,7 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
+var rpc_arkit_blend_shapes_pb = require('./rpc/arkit_blend_shapes_pb.js');
 goog.exportSymbol('proto.service.ActionConfig', null, global);
 goog.exportSymbol('proto.service.ActionConfig.Character', null, global);
 goog.exportSymbol('proto.service.ActionConfig.Object', null, global);
@@ -28,7 +29,6 @@ goog.exportSymbol('proto.service.GetResponseResponse', null, global);
 goog.exportSymbol('proto.service.GetResponseResponse.ActionResponse', null, global);
 goog.exportSymbol('proto.service.GetResponseResponse.AudioResponse', null, global);
 goog.exportSymbol('proto.service.GetResponseResponse.BehaviorTreeResponse', null, global);
-goog.exportSymbol('proto.service.GetResponseResponse.EmotionResponse', null, global);
 goog.exportSymbol('proto.service.GetResponseResponse.UserTranscript', null, global);
 goog.exportSymbol('proto.service.HelloRequest', null, global);
 goog.exportSymbol('proto.service.HelloResponse', null, global);
@@ -87,7 +87,8 @@ proto.service.AudioConfig.toObject = function(includeInstance, msg) {
     sampleRateHertz: jspb.Message.getFieldWithDefault(msg, 1, 0),
     disableAudio: jspb.Message.getFieldWithDefault(msg, 2, false),
     enableFacialData: jspb.Message.getFieldWithDefault(msg, 3, false),
-    faceModel: jspb.Message.getFieldWithDefault(msg, 4, 0)
+    faceModel: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    enableFacialEmotionData: jspb.Message.getFieldWithDefault(msg, 5, false)
   };
 
   if (includeInstance) {
@@ -139,6 +140,10 @@ proto.service.AudioConfig.deserializeBinaryFromReader = function(msg, reader) {
     case 4:
       var value = /** @type {!proto.service.FaceModel} */ (reader.readEnum());
       msg.setFaceModel(value);
+      break;
+    case 5:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setEnableFacialEmotionData(value);
       break;
     default:
       reader.skipField();
@@ -194,6 +199,13 @@ proto.service.AudioConfig.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0.0) {
     writer.writeEnum(
       4,
+      f
+    );
+  }
+  f = message.getEnableFacialEmotionData();
+  if (f) {
+    writer.writeBool(
+      5,
       f
     );
   }
@@ -261,6 +273,23 @@ proto.service.AudioConfig.prototype.getFaceModel = function() {
 /** @param {!proto.service.FaceModel} value */
 proto.service.AudioConfig.prototype.setFaceModel = function(value) {
   jspb.Message.setProto3EnumField(this, 4, value);
+};
+
+
+/**
+ * optional bool enable_facial_emotion_data = 5;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.service.AudioConfig.prototype.getEnableFacialEmotionData = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 5, false));
+};
+
+
+/** @param {boolean} value */
+proto.service.AudioConfig.prototype.setEnableFacialEmotionData = function(value) {
+  jspb.Message.setProto3BooleanField(this, 5, value);
 };
 
 
@@ -1721,7 +1750,8 @@ proto.service.GetResponseRequest.GetResponseConfig.toObject = function(includeIn
     audioConfig: (f = msg.getAudioConfig()) && proto.service.AudioConfig.toObject(includeInstance, f),
     actionConfig: (f = msg.getActionConfig()) && proto.service.ActionConfig.toObject(includeInstance, f),
     speaker: jspb.Message.getFieldWithDefault(msg, 7, ""),
-    languageCode: jspb.Message.getFieldWithDefault(msg, 8, "")
+    languageCode: jspb.Message.getFieldWithDefault(msg, 8, ""),
+    speakerId: jspb.Message.getFieldWithDefault(msg, 9, "")
   };
 
   if (includeInstance) {
@@ -1787,6 +1817,10 @@ proto.service.GetResponseRequest.GetResponseConfig.deserializeBinaryFromReader =
     case 8:
       var value = /** @type {string} */ (reader.readString());
       msg.setLanguageCode(value);
+      break;
+    case 9:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSpeakerId(value);
       break;
     default:
       reader.skipField();
@@ -1865,6 +1899,13 @@ proto.service.GetResponseRequest.GetResponseConfig.serializeBinaryToWriter = fun
   if (f.length > 0) {
     writer.writeString(
       8,
+      f
+    );
+  }
+  f = message.getSpeakerId();
+  if (f.length > 0) {
+    writer.writeString(
+      9,
       f
     );
   }
@@ -2003,6 +2044,21 @@ proto.service.GetResponseRequest.GetResponseConfig.prototype.getLanguageCode = f
 /** @param {string} value */
 proto.service.GetResponseRequest.GetResponseConfig.prototype.setLanguageCode = function(value) {
   jspb.Message.setProto3StringField(this, 8, value);
+};
+
+
+/**
+ * optional string speaker_id = 9;
+ * @return {string}
+ */
+proto.service.GetResponseRequest.GetResponseConfig.prototype.getSpeakerId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 9, ""));
+};
+
+
+/** @param {string} value */
+proto.service.GetResponseRequest.GetResponseConfig.prototype.setSpeakerId = function(value) {
+  jspb.Message.setProto3StringField(this, 9, value);
 };
 
 
@@ -2891,7 +2947,7 @@ proto.service.GetResponseResponse.AudioResponse.toObject = function(includeInsta
     faceData: jspb.Message.getFieldWithDefault(msg, 5, ""),
     visemesData: (f = msg.getVisemesData()) && proto.service.VisemesData.toObject(includeInstance, f),
     blendshapesData: (f = msg.getBlendshapesData()) && proto.service.BlendShapesData.toObject(includeInstance, f),
-    emotionResponse: (f = msg.getEmotionResponse()) && proto.service.GetResponseResponse.EmotionResponse.toObject(includeInstance, f)
+    faceEmotion: (f = msg.getFaceEmotion()) && rpc_arkit_blend_shapes_pb.ARKitBlendShapesData.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -2960,9 +3016,9 @@ proto.service.GetResponseResponse.AudioResponse.deserializeBinaryFromReader = fu
       msg.setBlendshapesData(value);
       break;
     case 8:
-      var value = new proto.service.GetResponseResponse.EmotionResponse;
-      reader.readMessage(value,proto.service.GetResponseResponse.EmotionResponse.deserializeBinaryFromReader);
-      msg.setEmotionResponse(value);
+      var value = new rpc_arkit_blend_shapes_pb.ARKitBlendShapesData;
+      reader.readMessage(value,rpc_arkit_blend_shapes_pb.ARKitBlendShapesData.deserializeBinaryFromReader);
+      msg.setFaceEmotion(value);
       break;
     default:
       reader.skipField();
@@ -3045,12 +3101,12 @@ proto.service.GetResponseResponse.AudioResponse.serializeBinaryToWriter = functi
       proto.service.BlendShapesData.serializeBinaryToWriter
     );
   }
-  f = message.getEmotionResponse();
+  f = message.getFaceEmotion();
   if (f != null) {
     writer.writeMessage(
       8,
       f,
-      proto.service.GetResponseResponse.EmotionResponse.serializeBinaryToWriter
+      rpc_arkit_blend_shapes_pb.ARKitBlendShapesData.serializeBinaryToWriter
     );
   }
 };
@@ -3233,23 +3289,23 @@ proto.service.GetResponseResponse.AudioResponse.prototype.hasBlendshapesData = f
 
 
 /**
- * optional EmotionResponse emotion_response = 8;
- * @return {?proto.service.GetResponseResponse.EmotionResponse}
+ * optional ARKitBlendShapesData face_emotion = 8;
+ * @return {?proto.service.ARKitBlendShapesData}
  */
-proto.service.GetResponseResponse.AudioResponse.prototype.getEmotionResponse = function() {
-  return /** @type{?proto.service.GetResponseResponse.EmotionResponse} */ (
-    jspb.Message.getWrapperField(this, proto.service.GetResponseResponse.EmotionResponse, 8));
+proto.service.GetResponseResponse.AudioResponse.prototype.getFaceEmotion = function() {
+  return /** @type{?proto.service.ARKitBlendShapesData} */ (
+    jspb.Message.getWrapperField(this, rpc_arkit_blend_shapes_pb.ARKitBlendShapesData, 8));
 };
 
 
-/** @param {?proto.service.GetResponseResponse.EmotionResponse|undefined} value */
-proto.service.GetResponseResponse.AudioResponse.prototype.setEmotionResponse = function(value) {
+/** @param {?proto.service.ARKitBlendShapesData|undefined} value */
+proto.service.GetResponseResponse.AudioResponse.prototype.setFaceEmotion = function(value) {
   jspb.Message.setWrapperField(this, 8, value);
 };
 
 
-proto.service.GetResponseResponse.AudioResponse.prototype.clearEmotionResponse = function() {
-  this.setEmotionResponse(undefined);
+proto.service.GetResponseResponse.AudioResponse.prototype.clearFaceEmotion = function() {
+  this.setFaceEmotion(undefined);
 };
 
 
@@ -3257,7 +3313,7 @@ proto.service.GetResponseResponse.AudioResponse.prototype.clearEmotionResponse =
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.service.GetResponseResponse.AudioResponse.prototype.hasEmotionResponse = function() {
+proto.service.GetResponseResponse.AudioResponse.prototype.hasFaceEmotion = function() {
   return jspb.Message.getField(this, 8) != null;
 };
 
@@ -3401,175 +3457,6 @@ proto.service.GetResponseResponse.ActionResponse.prototype.getAction = function(
 /** @param {string} value */
 proto.service.GetResponseResponse.ActionResponse.prototype.setAction = function(value) {
   jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.service.GetResponseResponse.EmotionResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.service.GetResponseResponse.EmotionResponse, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.service.GetResponseResponse.EmotionResponse.displayName = 'proto.service.GetResponseResponse.EmotionResponse';
-}
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.GetResponseResponse.EmotionResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.GetResponseResponse.EmotionResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.GetResponseResponse.EmotionResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetResponseResponse.EmotionResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    emotion: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    scale: jspb.Message.getFieldWithDefault(msg, 2, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.GetResponseResponse.EmotionResponse}
- */
-proto.service.GetResponseResponse.EmotionResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.GetResponseResponse.EmotionResponse;
-  return proto.service.GetResponseResponse.EmotionResponse.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.GetResponseResponse.EmotionResponse} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.GetResponseResponse.EmotionResponse}
- */
-proto.service.GetResponseResponse.EmotionResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setEmotion(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setScale(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.GetResponseResponse.EmotionResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.GetResponseResponse.EmotionResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.GetResponseResponse.EmotionResponse} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetResponseResponse.EmotionResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getEmotion();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getScale();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string emotion = 1;
- * @return {string}
- */
-proto.service.GetResponseResponse.EmotionResponse.prototype.getEmotion = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/** @param {string} value */
-proto.service.GetResponseResponse.EmotionResponse.prototype.setEmotion = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string scale = 2;
- * @return {string}
- */
-proto.service.GetResponseResponse.EmotionResponse.prototype.getScale = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/** @param {string} value */
-proto.service.GetResponseResponse.EmotionResponse.prototype.setScale = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 

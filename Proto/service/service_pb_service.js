@@ -1,7 +1,7 @@
 // package: service
-// file: service/service.proto
+// file: service.proto
 
-var service_service_pb = require("../service/service_pb");
+var service_pb = require("./service_pb");
 var grpc = require("@improbable-eng/grpc-web").grpc;
 
 var ConvaiService = (function () {
@@ -15,8 +15,8 @@ ConvaiService.Hello = {
   service: ConvaiService,
   requestStream: false,
   responseStream: false,
-  requestType: service_service_pb.HelloRequest,
-  responseType: service_service_pb.HelloResponse
+  requestType: service_pb.HelloRequest,
+  responseType: service_pb.HelloResponse
 };
 
 ConvaiService.HelloStream = {
@@ -24,8 +24,8 @@ ConvaiService.HelloStream = {
   service: ConvaiService,
   requestStream: true,
   responseStream: true,
-  requestType: service_service_pb.HelloRequest,
-  responseType: service_service_pb.HelloResponse
+  requestType: service_pb.HelloRequest,
+  responseType: service_pb.HelloResponse
 };
 
 ConvaiService.SpeechToText = {
@@ -33,8 +33,8 @@ ConvaiService.SpeechToText = {
   service: ConvaiService,
   requestStream: true,
   responseStream: true,
-  requestType: service_service_pb.STTRequest,
-  responseType: service_service_pb.STTResponse
+  requestType: service_pb.STTRequest,
+  responseType: service_pb.STTResponse
 };
 
 ConvaiService.GetResponse = {
@@ -42,8 +42,8 @@ ConvaiService.GetResponse = {
   service: ConvaiService,
   requestStream: true,
   responseStream: true,
-  requestType: service_service_pb.GetResponseRequest,
-  responseType: service_service_pb.GetResponseResponse
+  requestType: service_pb.GetResponseRequest,
+  responseType: service_pb.GetResponseResponse
 };
 
 ConvaiService.GetResponseSingle = {
@@ -51,8 +51,8 @@ ConvaiService.GetResponseSingle = {
   service: ConvaiService,
   requestStream: false,
   responseStream: true,
-  requestType: service_service_pb.GetResponseRequestSingle,
-  responseType: service_service_pb.GetResponseResponse
+  requestType: service_pb.GetResponseRequestSingle,
+  responseType: service_pb.GetResponseResponse
 };
 
 ConvaiService.SubmitFeedback = {
@@ -60,8 +60,8 @@ ConvaiService.SubmitFeedback = {
   service: ConvaiService,
   requestStream: false,
   responseStream: false,
-  requestType: service_service_pb.FeedbackRequest,
-  responseType: service_service_pb.FeedbackResponse
+  requestType: service_pb.FeedbackRequest,
+  responseType: service_pb.FeedbackResponse
 };
 
 exports.ConvaiService = ConvaiService;

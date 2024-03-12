@@ -1,7 +1,8 @@
 // package: service
-// file: service/service.proto
+// file: service.proto
 
 import * as jspb from "google-protobuf";
+import * as rpc_arkit_blend_shapes_pb from "./rpc/arkit_blend_shapes_pb";
 
 export class AudioConfig extends jspb.Message {
   getSampleRateHertz(): number;
@@ -15,6 +16,9 @@ export class AudioConfig extends jspb.Message {
 
   getFaceModel(): FaceModelMap[keyof FaceModelMap];
   setFaceModel(value: FaceModelMap[keyof FaceModelMap]): void;
+
+  getEnableFacialEmotionData(): boolean;
+  setEnableFacialEmotionData(value: boolean): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): AudioConfig.AsObject;
@@ -32,6 +36,7 @@ export namespace AudioConfig {
     disableAudio: boolean,
     enableFacialData: boolean,
     faceModel: FaceModelMap[keyof FaceModelMap],
+    enableFacialEmotionData: boolean,
   }
 }
 
@@ -264,6 +269,9 @@ export namespace GetResponseRequest {
     getLanguageCode(): string;
     setLanguageCode(value: string): void;
 
+    getSpeakerId(): string;
+    setSpeakerId(value: string): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetResponseConfig.AsObject;
     static toObject(includeInstance: boolean, msg: GetResponseConfig): GetResponseConfig.AsObject;
@@ -283,6 +291,7 @@ export namespace GetResponseRequest {
       actionConfig?: ActionConfig.AsObject,
       speaker: string,
       languageCode: string,
+      speakerId: string,
     }
   }
 
@@ -457,10 +466,10 @@ export namespace GetResponseResponse {
     getBlendshapesData(): BlendShapesData | undefined;
     setBlendshapesData(value?: BlendShapesData): void;
 
-    hasEmotionResponse(): boolean;
-    clearEmotionResponse(): void;
-    getEmotionResponse(): GetResponseResponse.EmotionResponse | undefined;
-    setEmotionResponse(value?: GetResponseResponse.EmotionResponse): void;
+    hasFaceEmotion(): boolean;
+    clearFaceEmotion(): void;
+    getFaceEmotion(): rpc_arkit_blend_shapes_pb.ARKitBlendShapesData | undefined;
+    setFaceEmotion(value?: rpc_arkit_blend_shapes_pb.ARKitBlendShapesData): void;
 
     getFaceDataTypeCase(): AudioResponse.FaceDataTypeCase;
     serializeBinary(): Uint8Array;
@@ -482,7 +491,7 @@ export namespace GetResponseResponse {
       faceData: string,
       visemesData?: VisemesData.AsObject,
       blendshapesData?: BlendShapesData.AsObject,
-      emotionResponse?: GetResponseResponse.EmotionResponse.AsObject,
+      faceEmotion?: rpc_arkit_blend_shapes_pb.ARKitBlendShapesData.AsObject,
     }
 
     export enum FaceDataTypeCase {
@@ -509,30 +518,6 @@ export namespace GetResponseResponse {
   export namespace ActionResponse {
     export type AsObject = {
       action: string,
-    }
-  }
-
-  export class EmotionResponse extends jspb.Message {
-    getEmotion(): string;
-    setEmotion(value: string): void;
-
-    getScale(): string;
-    setScale(value: string): void;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): EmotionResponse.AsObject;
-    static toObject(includeInstance: boolean, msg: EmotionResponse): EmotionResponse.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: EmotionResponse, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): EmotionResponse;
-    static deserializeBinaryFromReader(message: EmotionResponse, reader: jspb.BinaryReader): EmotionResponse;
-  }
-
-  export namespace EmotionResponse {
-    export type AsObject = {
-      emotion: string,
-      scale: string,
     }
   }
 

@@ -1,30 +1,22 @@
 {
-    "compilerOptions": {
-        "sourceMap": true,
-        "declaration": true,
-        "declarationDir": "./dist/typings",
-        "target": "es5",
-        "lib": [
-            "es6",
-            "dom"
-        ],
-        "removeComments": true,
-        "noImplicitReturns": true,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "stripInternal": true,
-        "noFallthroughCasesInSwitch": true,
-        "outDir": "dist",
-        "noEmitOnError": true
-    },
-    "types": [
-        "node"
-    ],
-    "include": [
-        "src"
-    ],
-    "exclude": [
-        "node_modules",
-        "_proto"
-    ]
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./dist/typings",
+    "sourceMap": true,
+    "module": "esnext", // Compatible with both Node.js and browser
+    "moduleResolution": "node", // Tell tsc to look in node_modules for modules
+    "target": "es6",
+    "lib": ["esnext", "dom"],
+    "removeComments": true,
+    "noImplicitReturns": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "stripInternal": true,
+    "noFallthroughCasesInSwitch": true,
+    "outDir": "dist",
+    "noEmitOnError": true,
+    "noUnusedParameters": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "Proto"]
 }
