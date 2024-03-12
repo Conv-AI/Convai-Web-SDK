@@ -1,7 +1,9 @@
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer'); // Import the plugin
 
 const LIB_BASE_CONFIG = {
-  entry: './src/index.ts',
+  entry: './src/convai_client.ts',
   mode: 'production',
   module: {
     rules: [
@@ -17,30 +19,58 @@ const LIB_BASE_CONFIG = {
   },
 };
 
-const DIST_DIR = path.resolve(__dirname, 'dist');
-
 module.exports = [
   {
     name: 'lib-commonjs',
     ...LIB_BASE_CONFIG,
-    target: 'node', // Set the target to 'node' for CommonJS output
+    target: 'node',
+    optimization: {
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              drop_console: true,
+            },
+          },
+        }),
+      ],
+    },
     output: {
-      path: DIST_DIR,
-      filename: `convai-web-client.common.js`, // Adjusted filename for CommonJS
+      path: path.resolve(__dirname, 'dist/cjs'),
+      filename: `convai-web-client.js`,
       libraryTarget: 'commonjs',
       globalObject: 'this',
     },
+    plugins: [
+      new BundleAnalyzerPlugin({ analyzerPort: 3001 }), // Add the plugin here
+    ],
   },
   {
     name: 'lib-umd',
     ...LIB_BASE_CONFIG,
     target: 'web',
+    optimization: {
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              drop_console: true,
+            },
+          },
+        }),
+      ],
+    },
     output: {
-      path: DIST_DIR,
+      path: path.resolve(__dirname, 'dist/umd'),
       filename: `convai-web-client.umd.js`,
-      library: 'ConvaiWebClient', // Adjusted library name for UMD
+      library: 'convai-web-core',
       libraryTarget: 'umd',
       globalObject: 'this',
     },
+    plugins: [
+      new BundleAnalyzerPlugin({ analyzerPort: 8889 }), // Add the plugin here
+    ],
   },
 ];

@@ -1,31 +1,22 @@
 {
   "compilerOptions": {
-    "incremental": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "strict": true,
-    "module": "esnext",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "declaration": true,
-    "declarationDir": "dist/typings",
+    "declarationDir": "./dist/typings",
+    "sourceMap": true,
+    "module": "esnext", // Compatible with both Node.js and browser
+    "moduleResolution": "node", // Tell tsc to look in node_modules for modules
+    "target": "es6",
     "lib": ["esnext", "dom"],
-    "target": "esnext",
     "removeComments": true,
     "noImplicitReturns": false,
     "noImplicitAny": false,
     "strictNullChecks": false,
     "stripInternal": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./src",
     "outDir": "dist",
-    "noEmitOnError": true
+    "noEmitOnError": true,
+    "noUnusedParameters": true
   },
-  "types": ["node"],
-  "include": ["src/**/*.ts", "src/**/*.js"],
+  "include": ["src"],
   "exclude": ["node_modules", "Proto"]
 }
