@@ -9,4 +9,6 @@ export declare class AudioRecorder {
     private convertoFloat32ToInt16;
     start(audioCallback: (buffer: ArrayBuffer) => void): void;
     stop(): void;
+    removeMicrophoneAccess(): void;
+    getMicrophoneAccess(): void;
 }
