@@ -13,7 +13,8 @@ export declare class ConvaiGRPCClient {
     private disableAudioGeneration;
     private enableFacialData;
     private faceModel;
-    constructor(apiKey: string, characterId: string, speaker: string, speakerId: string, sessionId: string, responseCallback: (response: GetResponseResponse) => void, errorCallback: (type: string, statusMessage: string) => void, languageCode: string, disableAudioGeneration?: boolean, enableFacialData?: boolean, faceModel?: 0 | 1 | 2 | 3);
+    private narrativeTemplateKeysMap;
+    constructor(apiKey: string, characterId: string, speaker: string, speakerId: string, sessionId: string, responseCallback: (response: GetResponseResponse) => void, errorCallback: (type: string, statusMessage: string) => void, languageCode: string, disableAudioGeneration: boolean, enableFacialData: boolean, faceModel: 0 | 1 | 2 | 3, narrativeTemplateKeysMap: Map<string, string>);
     close(): void;
     invokeTrigger(name: string, message?: string): void;
     sendFeedback(interaction_id: string, character_id: string, session_id: string, thumbs_up: boolean, feedback_text: string): void;

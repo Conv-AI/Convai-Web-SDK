@@ -10,6 +10,7 @@ export interface ConvaiClientParams {
     disableAudioGeneration?: boolean;
     enableFacialData?: boolean;
     faceModel?: 0 | 1 | 2 | 3;
+    narrativeTemplateKeysMap: Map<string, string>;
 }
 export declare class ConvaiClient {
     private sessionId;
@@ -29,6 +30,7 @@ export declare class ConvaiClient {
     private disableAudioGeneration;
     private enableFacialData;
     private faceModel;
+    private narrativeTemplateKeysMap;
     constructor(params: ConvaiClientParams);
     private validateBeforeRequest;
     resetSession(): void;

@@ -9,7 +9,7 @@
     "interactive web experiences",
     "interactive avatars"
   ],
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://www.convai.com/",
   "main": "dist/cjs/convai-web-client.js",
   "browser": "dist/umd/convai-web-client.umd.js",
