@@ -1,4 +1,5 @@
 import { GetResponseResponse } from '../Proto/service/service_pb';
+import { ActionConfigParamsType, ConvaiGRPCClientConfigType } from './types';
 export interface ConvaiClientParams {
     apiKey: string;
     characterId: string;
@@ -31,20 +32,22 @@ export declare class ConvaiClient {
     private enableFacialData;
     private faceModel;
     private narrativeTemplateKeysMap;
+    private actionConfig;
+    convaiConfig: ConvaiGRPCClientConfigType;
     constructor(params: ConvaiClientParams);
     private validateBeforeRequest;
     resetSession(): void;
     setResponseCallback(fn: (response: GetResponseResponse) => void): void;
-    setErrorCallback(fn: (type: string, statusMessage: string) => void): void;
+    setErrorCallback(fn: (type: string, statusMessage: string, status: string) => void): void;
+    sendTextChunk(text: string): void;
+    startAudioChunk(): void;
     invokeTrigger(name: string, message?: string): void;
     sendFeedback(interaction_id: string, character_id: string, session_id: string, thumbs_up: boolean, feedback_text: string): void;
-    sendTextChunk(text: string): void;
-    connectionState(text: string): void;
-    startAudioChunk(): void;
     endAudioChunk(): void;
     toggleAudioVolume(): void;
     getAudioVolume(): number;
     stopCharacterAudio(): void;
     onAudioPlay(fn: () => void): void;
     onAudioStop(fn: () => void): void;
+    setActionConfig(actionConfig: ActionConfigParamsType): void;
 }
