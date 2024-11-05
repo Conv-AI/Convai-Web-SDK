@@ -5,14 +5,15 @@ export interface ConvaiClientParams {
     apiKey: string;
     characterId: string;
     speaker: string;
-    speakerId: string;
     enableAudio: boolean;
+    speakerId: string;
     sessionId: string;
     languageCode?: string;
-    disableAudioGeneration?: boolean;
     enableFacialData?: boolean;
     faceModel?: 0 | 1 | 2 | 3;
     narrativeTemplateKeysMap: Map<string, string>;
+    textOnlyResponse?: boolean;
+    micUsage?: boolean;
 }
 export declare class ConvaiClient {
     private sessionId;
@@ -32,6 +33,7 @@ export declare class ConvaiClient {
     private disableAudioGeneration;
     private enableFacialData;
     private faceModel;
+    private micUsage?;
     private narrativeTemplateKeysMap;
     private actionConfig;
     convaiConfig: ConvaiGRPCClientConfigType;
