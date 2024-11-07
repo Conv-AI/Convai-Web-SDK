@@ -1,17 +1,19 @@
 import { GetResponseResponse } from '../Proto/service/service_pb';
 import { ActionConfigParamsType, ConvaiGRPCClientConfigType } from './types';
+import * as narrativeDesign from "./narrativeDesign";
 export interface ConvaiClientParams {
     apiKey: string;
     characterId: string;
     speaker: string;
-    speakerId: string;
     enableAudio: boolean;
+    speakerId: string;
     sessionId: string;
     languageCode?: string;
-    disableAudioGeneration?: boolean;
     enableFacialData?: boolean;
     faceModel?: 0 | 1 | 2 | 3;
     narrativeTemplateKeysMap: Map<string, string>;
+    textOnlyResponse?: boolean;
+    micUsage?: boolean;
 }
 export declare class ConvaiClient {
     private sessionId;
@@ -31,6 +33,7 @@ export declare class ConvaiClient {
     private disableAudioGeneration;
     private enableFacialData;
     private faceModel;
+    private micUsage?;
     private narrativeTemplateKeysMap;
     private actionConfig;
     convaiConfig: ConvaiGRPCClientConfigType;
@@ -41,7 +44,7 @@ export declare class ConvaiClient {
     setErrorCallback(fn: (type: string, statusMessage: string, status: string) => void): void;
     sendTextChunk(text: string): void;
     startAudioChunk(): void;
-    invokeTrigger(name: string, message?: string): void;
+    invokeTrigger(name: string | null, message?: string | null, preload?: boolean): void;
     sendFeedback(interaction_id: string, character_id: string, session_id: string, thumbs_up: boolean, feedback_text: string): void;
     endAudioChunk(): void;
     toggleAudioVolume(): void;
@@ -49,5 +52,10 @@ export declare class ConvaiClient {
     stopCharacterAudio(): void;
     onAudioPlay(fn: () => void): void;
     onAudioStop(fn: () => void): void;
+    pauseAudio(): void;
+    resumeAudio(): void;
+    onAudioStateChange(fn: () => void): void;
+    playAudio(): void;
     setActionConfig(actionConfig: ActionConfigParamsType): void;
 }
+export { narrativeDesign };

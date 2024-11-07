@@ -11,11 +11,16 @@ import { GetResponseResponse } from "convai-web-sdk/dist/_proto/service/service_
 // Initiate the convai client.
 const convaiClient = useRef(null);
 convaiClient.current = new ConvaiClient({
-      apiKey: string //Enter your API Key here,
-      characterId: string //Enter your Character ID,
-      enableAudio: boolean, //use false for text only.
-      sessionId: string //current conversation session. Can be used to retrieve chat history. 
-      disableAudioGeneration: boolean false, //Optional parameter for chat only applications
+      apiKey: string, //Enter your API Key here,
+      characterId: string, //Enter your Character ID,
+      enableAudio: boolean, //No chareacter audio will be played but will be generated.
+      sessionId: string, //current conversation session. Can be used to retrieve chat history. 
+      languageCode?: string, 
+      textOnlyResponse?: boolean, //Optional parameter for chat only applications (No audio response from chareacter)
+      micUsage?: boolean, // Option parameter for no microphone usage and access
+      enableFacialData?: boolean, // Optional for viseme data generation used for lipsync and expression
+      faceModel?: 3,
+      narrativeTemplateKeysMap: Map<string, string>, //dynamically pass variables to the Narrative Design section and triggers
  })
 
 // Set a response callback. This may fire multiple times as response
