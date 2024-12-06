@@ -4,10 +4,10 @@ import { ActionConfigParamsType } from './types';
 export declare class ConvaiGRPCClient {
     client: grpc.Client<any, any>;
     private feedbackClient;
-    private apiKey;
+    apiKey: string;
     private languageCode;
     private sessionId;
-    private characterId;
+    characterId: string;
     private speaker;
     private inputMode;
     private isStarted;
