@@ -1,6 +1,6 @@
 import { GetResponseResponse } from '../Proto/service/service_pb';
 import { ActionConfigParamsType, ConvaiGRPCClientConfigType } from './types';
-import * as narrativeDesign from "./narrativeDesign";
+import * as narrativeDesign from './narrativeDesign';
 export interface ConvaiClientParams {
     apiKey: string;
     characterId: string;
@@ -14,6 +14,7 @@ export interface ConvaiClientParams {
     narrativeTemplateKeysMap: Map<string, string>;
     textOnlyResponse?: boolean;
     micUsage?: boolean;
+    webstreamUrl?: string;
 }
 export declare class ConvaiClient {
     private sessionId;

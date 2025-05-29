@@ -1,4 +1,4 @@
-import { ActionConfig } from "../Proto/service/service_pb";
+import { ActionConfig } from '../Proto/service/service_pb';
 type ConvaiGRPCClientConfigType = {
     apiKey: string;
     characterId: string;
@@ -13,6 +13,7 @@ type ConvaiGRPCClientConfigType = {
     faceModel: 0 | 1 | 2 | 3;
     narrativeTemplateKeysMap: any;
     actionConfig?: ActionConfigParamsType | null;
+    webstreamUrl?: string;
 };
 type ActionConfigParamsType = {
     actions?: string[];
